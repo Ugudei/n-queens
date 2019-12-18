@@ -79,12 +79,36 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
+      var row = this.get(rowIndex);
+      var storage = [];
+      // console.log('Current state of ROW: ', row);
+      for (var i = 0; i < row.length; i++) {
+        if (row[i]) {
+          storage.push (row[i]);
+        }
+      }
+      // console.log('Current state of STORAGE: ', storage);
+      if (storage.length > 1) {
+        return true;
+      } else {
+        return false; // fixme
+      }
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      return false; // fixme
+      console.log('N is whole array:', this.get(0))
+      for (var j = 0; j < this.get('n'); j++) {
+        // console.log('Is there a  rowConflictAt? ', this.hasRowConflictAt(j));
+
+        if (this.hasRowConflictAt(j)) {
+          // console.log('inside if has to return false:')
+          return true;
+        } // fixme
+
+      }
+      // console.log('true outside for loop');
+      return false;
     },
 
 
@@ -94,12 +118,36 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+      // for loop with n
+      var columnArray = [];
+      var storage = [];
+      for (var j = 0; j < this.get('n'); j++) {
+        // iterate through the row === [row array] (this.get(i))
+        columnArray.push(this.get(j)[colIndex]);
+        // retrieve row[colIndex]
+      }
+      for (var i = 0; i < columnArray.length; i++) {
+        if (columnArray[i]) {
+          // push to storage array
+          storage.push(columnArray[i]);
+        }
+      }
+      if (storage.length > 1) {
+        return true;
+      } else {
+        return false; // fixme
+      }
+      // call conflictAtRow func in our result arr.
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+      for (var j = 0; j < this.get('n'); j++) {
+        if (this.hasColConflictAt(j)) {
+          return true;
+        }
+      }
+      return false;
     },
 
 
