@@ -60,8 +60,6 @@
         0 <= colIndex && colIndex < this.get('n')
       );
     },
-
-
 /*
          _             _     _
      ___| |_ __ _ _ __| |_  | |__   ___ _ __ ___ _
@@ -97,17 +95,15 @@
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      console.log('N is whole array:', this.get(0))
+      // console.log('N is whole array:', this.get('n'))
       for (var j = 0; j < this.get('n'); j++) {
         // console.log('Is there a  rowConflictAt? ', this.hasRowConflictAt(j));
-
         if (this.hasRowConflictAt(j)) {
           // console.log('inside if has to return false:')
           return true;
         } // fixme
 
       }
-      // console.log('true outside for loop');
       return false;
     },
 
@@ -118,7 +114,7 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      // for loop with n
+      // for loop with n ('n' is the whole array at index 'n')
       var columnArray = [];
       var storage = [];
       for (var j = 0; j < this.get('n'); j++) {
@@ -157,15 +153,49 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      console.log('just major: ', majorDiagonalColumnIndexAtFirstRow);
+      // console.log('Diagonal index ', this.get(majorDiagonalColumnIndexAtFirstRow));
+      // iterate through this.get(majorDiagonalColumnIndexAtFirstRow) checking for
+      // without this.get majorDiagonalColumnIndexAtFirstRow
+      var completeMatrix = [];
+      var storage = [];
+      var colIndex = majorDiagonalColumnIndexAtFirstRow;
+      //iterate to get matrix of rows
+      for (var rowIndex = 0; rowIndex < this.get('n'); rowIndex++) {
+        // iterate through the row === [row array] (this.get(i))
+        completeMatrix.push(this.get(rowIndex));
+        // retrieve row[colIndex]
+        // increase ColNumber
+
+      }
+      console.log('Complete Matrix is ', completeMatrix);
+      for (var row = 0; row < completeMatrix.length; row++) {
+        if (completeMatrix[row][colIndex]) {
+          // push to storage array
+          storage.push(completeMatrix[row][colIndex]);
+        }
+        colIndex++;
+      }
+      console.log('Storage is -> ',storage);
+      if (storage.length > 1) {
+        return true;
+      } else {
+        return false; // fixme
+      }
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      return false; // fixme
+      for (var j = 0; j < this.get('n'); j++) {
+        // console.log('Is there a  rowConflictAt? ', this.hasRowConflictAt(j));
+        if (this.hasMajorDiagonalConflictAt(j)) {
+          // console.log('inside if has to return false:')
+          return true;
+        } // fixme
+
+      }
+      return false;
     },
-
-
 
     // Minor Diagonals - go from top-right to bottom-left
     // --------------------------------------------------------------
