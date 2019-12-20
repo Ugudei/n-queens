@@ -60,7 +60,7 @@
         0 <= colIndex && colIndex < this.get('n')
       );
     },
-/*
+    /*
          _             _     _
      ___| |_ __ _ _ __| |_  | |__   ___ _ __ ___ _
     / __| __/ _` | '__| __| | '_ \ / _ \ '__/ _ (_)
@@ -79,13 +79,12 @@
     hasRowConflictAt: function(rowIndex) {
       var row = this.get(rowIndex);
       var storage = [];
-      // console.log('Current state of ROW: ', row);
       for (var i = 0; i < row.length; i++) {
         if (row[i]) {
           storage.push (row[i]);
         }
       }
-      // console.log('Current state of STORAGE: ', storage);
+      // checks if there has been found a conflict in a row
       if (storage.length > 1) {
         return true;
       } else {
@@ -95,13 +94,12 @@
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      // console.log('N is whole array:', this.get('n'))
+      // iterate sending rows to hasRowConflict
       for (var j = 0; j < this.get('n'); j++) {
-        // console.log('Is there a  rowConflictAt? ', this.hasRowConflictAt(j));
+        //if it found conflict on row j
         if (this.hasRowConflictAt(j)) {
-          // console.log('inside if has to return false:')
           return true;
-        } // fixme
+        }
 
       }
       return false;
@@ -119,8 +117,8 @@
       var storage = [];
       for (var j = 0; j < this.get('n'); j++) {
         // iterate through the row === [row array] (this.get(i))
-        columnArray.push(this.get(j)[colIndex]);
         // retrieve row[colIndex]
+        columnArray.push(this.get(j)[colIndex]);
       }
       for (var i = 0; i < columnArray.length; i++) {
         if (columnArray[i]) {
@@ -133,7 +131,6 @@
       } else {
         return false; // fixme
       }
-      // call conflictAtRow func in our result arr.
     },
 
     // test if any columns on this board contain conflicts
@@ -153,36 +150,46 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      console.log('just major: ', majorDiagonalColumnIndexAtFirstRow);
+      // console.log('--- New Test begins ---');
+      // console.log('just major: ', majorDiagonalColumnIndexAtFirstRow);
       // console.log('Diagonal index ', this.get(majorDiagonalColumnIndexAtFirstRow));
       // iterate through this.get(majorDiagonalColumnIndexAtFirstRow) checking for
       // without this.get majorDiagonalColumnIndexAtFirstRow
       var completeMatrix = [];
       var storage = [];
       var colIndex = majorDiagonalColumnIndexAtFirstRow;
+      var myRow = 0;
       //iterate to get matrix of rows
       for (var rowIndex = 0; rowIndex < this.get('n'); rowIndex++) {
-        // iterate through the row === [row array] (this.get(i))
         completeMatrix.push(this.get(rowIndex));
-        // retrieve row[colIndex]
-        // increase ColNumber
-
       }
-      console.log('Complete Matrix is ', completeMatrix);
+      // console.log('Complete Matrix is ', completeMatrix);
+      // iterate through elements of matrix
       for (var row = 0; row < completeMatrix.length; row++) {
-        if (completeMatrix[row][colIndex]) {
+        // checking if index is truth(1)
+        // console.log('Is row->', row, ' col ->', colIndex, '-- Element is# ', completeMatrix[row][colIndex])
+        if (completeMatrix[row][colIndex] ) {
+          // console.log('**element being pushed to storage** row->', row, ' col ->', colIndex)
           // push to storage array
           storage.push(completeMatrix[row][colIndex]);
+
         }
+        // make this expression run once
+       /*if (majorDiagonalColumnIndexAtFirstRow === 0 && completeMatrix[0][majorDiagonalColumnIndexAtFirstRow] === 0 && row === 0) {
+          console.log('INSIDE OF THE 0 & 0 STATEMENT, with row', row)
+          continue;
+        }*/
         colIndex++;
       }
-      console.log('Storage is -> ',storage);
+      // console.log('Storage is iteration through matrix -> ', storage);
+      // console.log('hasMajorDiagonalConflict? ', storage.length > 1);
       if (storage.length > 1) {
         return true;
       } else {
         return false; // fixme
       }
     },
+
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
@@ -202,12 +209,40 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      var completeMatrix = [];
+      var storage = [];
+      var colIndex = minorDiagonalColumnIndexAtFirstRow;
+      //iterate to get matrix of rows
+      for (var rowIndex = 0; rowIndex < this.get('n'); rowIndex++) {
+        completeMatrix.push(this.get(rowIndex));
+      }
+      for (var row = 0; row < completeMatrix.length; row++) {
+        if (completeMatrix[row][colIndex]) {
+          // push to storage array
+          storage.push(completeMatrix[row][colIndex]);
+        }
+        colIndex--;
+      }
+      if (storage.length > 1) {
+        return true;
+      } else {
+        return false;
+      }
+
+
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      return false; // fixme
+      for (var j = 0; j < this.get('n'); j++) {
+        // console.log('Is there a  rowConflictAt? ', this.hasRowConflictAt(j));
+        if (this.hasMinorDiagonalConflictAt(j)) {
+          // console.log('inside if has to return false:')
+          return true;
+        } // fixme
+
+      }
+      return false;
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
