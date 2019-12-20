@@ -20,6 +20,7 @@ describe('Board', function() {
   };
 
   describe('Empty board', function() {
+    // console.log('Start of Empty board testing');
     verifyConflictTypes([''], [
       [0, 0, 0, 0],
       [0, 0, 0, 0],
@@ -29,6 +30,7 @@ describe('Board', function() {
   });
 
   describe('Board with row conflicts', function() {
+    // console.log('Start of Row confilcts board testing');
     verifyConflictTypes(['row', 'rooks', 'queens'], [
       [0, 0, 0, 0],
       [1, 1, 0, 0],
@@ -38,6 +40,7 @@ describe('Board', function() {
   });
 
   describe('Board with col conflicts', function() {
+    // console.log('Start of col conflicts board testing');
     verifyConflictTypes(['col', 'rooks', 'queens'], [
       [1, 0, 0, 0],
       [0, 0, 0, 0],
@@ -47,13 +50,14 @@ describe('Board', function() {
   });
 
   describe('Board with major diagonal conflicts', function() {
+    // console.log('Start of major diagonal board testing');
     verifyConflictTypes(['majorDiagonal', 'queens'], [
       [0, 1, 0, 0],
       [0, 0, 1, 0],
       [0, 0, 0, 0],
       [0, 0, 0, 0]
     ]);
-
+    // console.log('Start of major diagonal2 board testing');
     verifyConflictTypes(['majorDiagonal', 'queens'], [
       [0, 0, 0, 0],
       [1, 0, 0, 0],
@@ -63,13 +67,14 @@ describe('Board', function() {
   });
 
   describe('Board with minor diagonal conflicts', function() {
+    // console.log('Start of minor diagonal board testing');
     verifyConflictTypes(['minorDiagonal', 'queens'], [
       [0, 0, 1, 0],
       [0, 0, 0, 0],
       [1, 0, 0, 0],
       [0, 0, 0, 0]
     ]);
-
+    // console.log('Start of minor diagonal2 board testing');
     verifyConflictTypes(['minorDiagonal', 'queens'], [
       [0, 0, 0, 0],
       [0, 0, 0, 0],
